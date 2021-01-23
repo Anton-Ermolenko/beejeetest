@@ -8,7 +8,7 @@ $controller = new Controller();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>TinyTable</title>
+    <title>BeeJee test</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>

@@ -5,25 +5,15 @@ class Login
 {
 	public function getResult()
 	{
-		$login = $_POST['username'] ?? '';
-		$password = $_POST['password'] ?? '';
-		if (isset($_POST['logout'])) {
-			$_SESSION['USER'] = "guest";
+		if ($_SESSION['USER'] == "admin") {
+			$auth = true;
 		}
-		$auth = $this->checkAuth($login, $password);
-		if ($auth)
-			$_SESSION['USER'] = "admin";
-
-		unset($_REQUEST['username']);
-		unset($_REQUEST['password']);
 
 		$result = ['auth' => $auth,
 			'user' => $_SESSION['USER'],
 			'userName' => $_POST['username'],
 			'request' => $_REQUEST];
 
-		unset($_POST['username']);
-		unset($_POST['password']);
 		return $result;
 	}
 
@@ -42,5 +32,23 @@ class Login
 		}
 
 		return false;
+	}
+
+	public function truyLogin(array $param)
+	{
+		$isLogin = $this->checkAuth($param['name'], $param['password']);
+		if ($isLogin){
+			session_id($_COOKIE['PHPSESSID']);
+			session_start();
+			$_SESSION['USER'] = $param['name'];
+		}
+		return $isLogin;
+	}
+
+	public function logout()
+	{
+		session_id($_COOKIE['PHPSESSID']);
+		session_start();
+		$_SESSION['USER'] = 'guest';
 	}
 }

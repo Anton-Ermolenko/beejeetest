@@ -1,3 +1,50 @@
+// login
+let login = document.getElementById('login');
+if (login) {
+    login.onclick = function () {
+        let user = document.getElementById('username');
+        let password = document.getElementById('password');
+
+        var sendObj = {param: 'login', name: user.value, password: password.value};
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/views/Login/login.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('param=' + JSON.stringify(sendObj));
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200 && this.response.substr(0, 4) == 'true') {
+                    window.location.reload();
+                } else {
+                    user.style.borderColor = "red";
+                    password.style.borderColor = "red";
+                }
+            }
+        };
+    }
+}
+
+let logout = document.getElementById('logout');
+if (logout) {
+    logout.onclick = function () {
+
+
+        var sendObj = {param: 'logout' };
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/views/Login/login.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('param=' + JSON.stringify(sendObj));
+        xhr.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                if (this.status == 200 && this.response.substr(0, 4) == 'true') {
+                    window.location.reload();
+                }
+            }
+        };
+    }
+}
+
+
 // check and AddTask
 
 let btnAdd = document.getElementById('newTaskBtn');
@@ -46,7 +93,7 @@ if (btnAdd) {
                     var span = document.getElementsByClassName("close_modal_window")[0];
                     var text = document.getElementById("addText");
 
-                    if (this.status == 200 && this.response == 'true') {
+                    if (this.status == 200 && this.response.substr(0, 4) == 'true') {
                         text.innerText = 'Task added';
                     } else {
                         text.innerText = 'Sorry, there was an error.';
@@ -163,8 +210,9 @@ function changeTable(element) {
     xhr.onreadystatechange = function () {
 
         if (this.readyState == 4) {
-
-            if (this.status == 200 && this.response == 'false') {
+console.log(this.response.substr(0, 4));
+            if (this.status == 200 && this.response.substr(0, 4) != 'true') {
+                console.log("test");
                 var modal = document.getElementById("my_modal");
                 var span = document.getElementsByClassName("close_modal_window")[0];
                 var text = document.getElementById("addText");

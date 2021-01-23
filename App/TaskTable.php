@@ -24,7 +24,7 @@ class TaskTable
 		}
 
 
-		$tasks = $db::query("select * from (select * from tasks order by " . $sort . " " . $path . ") as decks limit 3 offset " . $offset);
+		$tasks = $db::query("select * from (select * from tasks order by " . $sort . " " . $path . " LIMIT 9999) as decks limit 3 offset " . $offset);
 		$result = ['user' => $_SESSION['USER'],
 			'offset' => $offset,
 			'sort' => $sort,

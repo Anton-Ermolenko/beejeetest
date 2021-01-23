@@ -3,19 +3,16 @@
 if ($result['auth']) {
 	?>
     <div class="login">
-        <form id="loginForm" name="loginForm" method="post" action="">
-
-            <button type="submit" name="logout" class="button positive">
+            <button type="submit" name="logout" id="logout" class="button positive">
                 Logout
             </button>
             </p>
-        </form>
     </div>
 	<?
 } else {
 	?>
     <div class="login">
-        <form id="loginForm" name="loginForm" method="post" action="">
+
 			<? if (isset($result['userName'])): ?>
                 <p>
                     <label for="error">auth error</label>
@@ -33,11 +30,11 @@ if ($result['auth']) {
                 <input type="password" id="password" name="password"/>
             </p>
             <p>
-                <button type="submit" class="button positive">
+                <button type="submit" id="login" class="button positive">
                     Login
                 </button>
             </p>
-        </form>
+
     </div>
 	<?
 }
